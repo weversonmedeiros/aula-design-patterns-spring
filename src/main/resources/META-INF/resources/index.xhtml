@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>UNICEPLAC - Design Patterns com JSF</title>
+</h:head>
+<h:body>
+    <h:form id="formPattern">
+        <p:panel header="Padrão Strategy - Calculadora de Descontos">
+            
+            <h:panelGrid columns="2" cellpadding="5">
+                <p:outputLabel for="valor" value="Valor do Curso (R$):" />
+                <p:inputNumber id="valor" value="#{calculadoraBean.valorOriginal}" symbol="R$ " />
+
+                <p:outputLabel for="tipo" value="Perfil:" />
+                <p:selectOneMenu id="tipo" value="#{calculadoraBean.tipoDesconto}">
+                    <f:selectItem itemLabel="Selecione o perfil..." itemValue="" />
+                    <f:selectItem itemLabel="Estudante (50% desc)" itemValue="descontoEstudante" />
+                    <f:selectItem itemLabel="Professor (30% desc)" itemValue="descontoProfessor" />
+                </p:selectOneMenu>
+            </h:panelGrid>
+
+            <p:commandButton value="Aplicar Strategy" action="#{calculadoraBean.calcular}" update="resultado" style="margin-top: 10px;"/>
+            
+            <p:divider />
+
+            <h:panelGroup id="resultado">
+                <h:outputText value="Valor Final: R$ #{calculadoraBean.valorFinal}" 
+                              rendered="#{calculadoraBean.valorFinal > 0}" 
+                              style="font-size: 1.5em; color: green; font-weight: bold;"/>
+            </h:panelGroup>
+
+        </p:panel>
+    </h:form>
+</h:body>
+</html>
